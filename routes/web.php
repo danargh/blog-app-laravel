@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,7 @@ Route::get('/', function () {
         "title" => "home"
     ]);
 });
+
 Route::get('/about', function () {
     return view('about', [
         "title" => "about",
@@ -29,18 +33,13 @@ Route::get('/about', function () {
         "image" => "danar.jpg"
     ]);
 })->name('about');
-Route::get('/posts', [PostController::class, 'index'])->name('posts');
-Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('post');
-Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('category', [
-        "title" => $category->name,
-        "posts" => $category->posts,
-        "category" => $category->name
-    ]);
-})->name('category');
-Route::get('/categories', function () {
-    return view('categories', [
-        "title" => "categories",
-        "categories" => Category::all()
-    ]);
-})->name('categories');
+
+Route::get('/posts', [PostController::class, 'getAllPosts'])->name('posts');
+
+Route::get('/posts/{post:slug}', [PostController::class, 'getDetailPost'])->name('detailPost');
+
+Route::get('/categories/{category:slug}', [CategoryController::class, 'getDetailCategory'])->name('detailCategory');
+
+Route::get('/categories', [CategoryController::class, 'getAllCategories'])->name('categories');
+
+Route::get('/authors/{author:name}', [UserController::class, "getAuthorPost"])->name('authorPost');

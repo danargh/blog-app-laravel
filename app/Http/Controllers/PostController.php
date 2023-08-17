@@ -7,14 +7,14 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function index()
+    public function getAllPosts(Request $request)
     {
         return view('posts', [
-            "title" => "posts", "posts" => Post::all()
+            "title" => "posts", "posts" => Post::latest()->get()
         ]);
     }
 
-    public function show(Post $post)
+    public function getDetailPost(Request $request, Post $post)
     {
         return view('post', [
             "title" => "post", "post" => $post
