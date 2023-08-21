@@ -7,6 +7,12 @@ Post::create([
 ])
 
 Category::create([
-    'name' => 'Personal',
-    'slug' => 'personal'
+    'name' => 'Web Programming',
+    'slug' => 'web-programming'
+])
+
+User::create([
+    'name' => 'Danar Gh',
+    'email' => 'danar@gmail.com',
+    'password' => bcrypt('12345')
 ])

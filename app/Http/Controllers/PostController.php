@@ -10,14 +10,17 @@ class PostController extends Controller
     public function getAllPosts(Request $request)
     {
         return view('posts', [
-            "title" => "posts", "posts" => Post::with(['author', 'category'])->latest()->get()
+            "title" => "All Posts",
+            "posts" => Post::latest()->filter(request(['category', 'search', 'author']))->with(['author', 'category'])->get(),
+            "active" => "blog"
         ]);
     }
 
     public function getDetailPost(Request $request, Post $post)
     {
         return view('post', [
-            "title" => "post", "post" => $post
+            "title" => "post", "post" => $post,
+            "active" => "blog"
         ]);
     }
 }

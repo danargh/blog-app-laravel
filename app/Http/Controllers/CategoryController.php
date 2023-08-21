@@ -11,15 +11,17 @@ class CategoryController extends Controller
     {
         return view('categories', [
             "title" => "categories",
-            "categories" => Category::all()
+            "categories" => Category::all(),
+            "active" => 'categories'
         ]);
     }
 
     public function getDetailCategory(Request $request, Category $category)
     {
-        return view('category', [
-            "title" => $category->name,
+        return view('posts', [
+            "title" => 'Category : ' . $category->name,
             "posts" => $category->posts->load(['author', 'category']),
+            "active" => 'categories'
         ]);
     }
 }

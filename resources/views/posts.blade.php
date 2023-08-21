@@ -2,12 +2,72 @@
 
 @section('container')
 <h1>{{$title}}</h1>
-@foreach ($posts as $post)
-<article class="mb-5 mt-5 border-bottom pb-5">
-    <h2><a href="/posts/{{ $post->slug }}">{{ $post->title }}</a></h2>
-    <p>Created by <a href="/authors/{{$post->author->name}}" class="text-decoration-none">{{$post->author->name}}</a> in <a href="/categories/{{$post->category->slug}}">{{$post->category->name}}</a> </p>
-    <p>{{ $post->excerpt }}</p>
-    <a href="/posts/{{$post->slug}}">Read more...</a>
-</article>
-@endforeach
+
+<form action="/posts" method="GET">
+    @if (request('category'))
+    <input type="hidden" name="category" value="{{request('category')}}">
+    @elseif(request('author'))
+    <input type="hidden" name="author" value="{{request('author')}}">
+    @endif
+    <div class="input-group mb-3">
+        <input type="text" name="search" class="form-control" value="{{request('search')}}" placeholder="Search.." aria-label="Search input" aria-describedby="search">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+</form>
+
+@if ($posts->count() && $title === 'All Posts')
+
+<div class="card mb-3 mt-5">
+    <img src="https://static.vecteezy.com/system/resources/previews/003/343/387/original/desktop-source-code-and-wallpaper-by-coding-and-programming-free-photo.jpg" class="card-img-top" style="height: 300px; object-fit: cover" alt="...">
+    <div class="card-body text-center">
+        <h5 class="card-title">{{$posts[0]->title}}</h5>
+        <p>Created by <a href="/posts?author={{$posts[0]->author->name}}" class="text-decoration-none">{{$posts[0]->author->name}}</a> in <a href="/posts?category={{$posts[0]->category->slug}}">{{$posts[0]->category->name}}</a> {{$posts[0]->created_at}}</p>
+        <p class="card-text">{{$posts[0]->excerpt}}</p>
+        <p class="card-text"><small class="text-body-secondary">Last updated {{$posts[0]->updated_at->diffForHumans()}} </small></p>
+        <a href="/posts/{{$posts[0]->slug}}"><button class="text-decoration-none btn btn-primary">Read More</button></a>
+    </div>
+</div>
+<div class="container">
+    <div class="row row-cols-auto">
+        @foreach ($posts->skip(1) as $post)
+        <div class="col-md-4" style="margin-bottom: 16px">
+            <div class="card">
+                <div style="background-color: rgba(0,0,0,0.7)" class="px-3 py-2 position-absolute"><a class="text-white text-decoration-none" href="/posts?category={{$post->category->slug}}">{{$post->category->name}}</a></div>
+                <img src="https://ecampusontario.pressbooks.pub/app/uploads/sites/2109/2021/11/programming-gb0e197598_1920.jpg" class="card-img-top" style="width: 100%; object-fit: cover" alt="...">
+                <div class="card-body">
+                    <h5 class=" card-title"><a href="/posts/{{ $post->slug }}">{{ $post->title }}</a></h5>
+                    <p>Created by <a href="/posts?author={{$post->author->name}}" class="text-decoration-none">{{$post->author->name}}</a> <span class=" text-secondary">{{$post->updated_at->diffForHumans()}}</span> </p>
+                    <p class=" card-text">{{ $post->excerpt }}</p>
+
+                    <a href="/posts/{{$post->slug}}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+
+{{-- @elseif($posts->count() && (str_contains($title, 'User') || str_contains($title, 'Category')))
+<div class="container mt-4">
+    <div class="row row-cols-auto">
+        @foreach ($posts as $post)
+        <div class="col-md-4" style="margin-bottom: 16px">
+            <div class="card">
+                <div style="background-color: rgba(0,0,0,0.7)" class="px-3 py-2 position-absolute"><a class="text-white text-decoration-none" href="/posts?category={{$post->category->slug}}">{{$post->category->name}}</a></div>
+                <img src="https://ecampusontario.pressbooks.pub/app/uploads/sites/2109/2021/11/programming-gb0e197598_1920.jpg" class="card-img-top" style="width: 100%; object-fit: cover" alt="...">
+                <div class="card-body">
+                    <h5 class=" card-title"><a href="/posts/{{ $post->slug }}">{{ $post->title }}</a></h5>
+                    <p>Created by <a href="/posts?author={{$post->author->name}}" class="text-decoration-none">{{$post->author->name}}</a> <span class=" text-secondary">{{$post->updated_at->diffForHumans()}}</span> </p>
+                    <p class=" card-text">{{ $post->excerpt }}</p>
+
+                    <a href="/posts/{{$post->slug}}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div> --}}
+@else
+<h3 class="text-center fs-4 mt-5">No posts found.</h3>
+@endif
 @endsection
