@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
@@ -45,3 +47,7 @@ Route::get('/categories/{category:slug}', [CategoryController::class, 'getDetail
 Route::get('/categories', [CategoryController::class, 'getAllCategories'])->name('categories');
 
 Route::get('/authors/{author:name}', [UserController::class, "getAuthorPost"])->name('authorPost');
+
+Route::get("/login", [LoginController::class, "login"])->name("login");
+
+Route::get("/register", [RegisterController::class, "register"])->name("register");

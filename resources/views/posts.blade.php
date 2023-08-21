@@ -15,8 +15,7 @@
     </div>
 </form>
 
-@if ($posts->count() && $title === 'All Posts')
-
+@if ($posts->count() && $title == 'All Posts')
 <div class="card mb-3 mt-5">
     <img src="https://static.vecteezy.com/system/resources/previews/003/343/387/original/desktop-source-code-and-wallpaper-by-coding-and-programming-free-photo.jpg" class="card-img-top" style="height: 300px; object-fit: cover" alt="...">
     <div class="card-body text-center">
@@ -47,7 +46,8 @@
     </div>
 </div>
 
-{{-- @elseif($posts->count() && (str_contains($title, 'User') || str_contains($title, 'Category')))
+<div class="d-flex justify-content-center">{{ $posts->links() }}</div>
+@elseif($posts->count() && (str_contains($title, 'in') || str_contains($title, 'by')))
 <div class="container mt-4">
     <div class="row row-cols-auto">
         @foreach ($posts as $post)
@@ -66,7 +66,9 @@
         </div>
         @endforeach
     </div>
-</div> --}}
+</div>
+
+<div class="d-flex justify-content-center">{{ $posts->links() }}</div>
 @else
 <h3 class="text-center fs-4 mt-5">No posts found.</h3>
 @endif
