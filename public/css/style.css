@@ -7,6 +7,6 @@
     z-index: 2;
 }
 
-input {
-    margin-bottom: 1rem;
+.form-floating input {
+    margin-bottom: 0.2rem;
 }
