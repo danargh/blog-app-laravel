@@ -19,14 +19,32 @@
                     <a class="nav-link {{ $active === 'categories' ? 'active' : '' }}" href="/categories">Categories</a>
                 </li>
             </ul>
+
+            @auth
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item d-flex justify-items-center">
-                    <a href="/login" class="nav-link {{ $active === 'login' ? 'active' : '' }}"><i class=" m-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
-                                <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-                            </svg></i>Login</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Welcome back, {{ auth()->user()->name }}<i style="font-size: 24px; margin-left: 8px" class="bi bi-person-circle"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item d-flex align-items-center" href="/dashboard"><i style="font-size: 24px; margin-right: 8px" class="bi bi-window-sidebar"></i>My Dashboard</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <form action="/logout" method="POST">
+                            @csrf
+                            <button type="submit" class=" dropdown-item d-flex align-items-center"><i style="font-size: 24px; margin-right: 8px" class="bi bi-box-arrow-left"></i>Logout</button>
+                        </form>
+                    </ul>
                 </li>
             </ul>
+            @else
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item d-flex justify-items-center">
+                    <a href="/login" class="nav-link d-flex align-items-center {{ $active === 'login' ? 'active' : '' }}"><i style="font-size: 24px; margin-right:8px;" class="bi bi-box-arrow-in-right"></i>Login</a>
+                </li>
+            </ul>
+            @endauth
         </div>
     </div>
 </nav>

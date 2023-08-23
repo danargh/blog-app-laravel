@@ -5,10 +5,12 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,8 +50,14 @@ Route::get('/categories', [CategoryController::class, 'getAllCategories'])->name
 
 Route::get('/authors/{author:name}', [UserController::class, "getAuthorPost"])->name('authorPost');
 
-Route::get("/login", [LoginController::class, "login"])->name("login");
+Route::get("/login", [LoginController::class, "login"])->name("login")->middleware("guest");
 
-Route::get("/register", [RegisterController::class, "register"])->name("register");
+Route::post("/login", [LoginController::class, "authenticate"])->name("login.authenticate");
+
+Route::get("/register", [RegisterController::class, "register"])->name("register")->middleware("guest");
 
 Route::post("/register", [RegisterController::class, "storeRegister"])->name("register.store");
+
+Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard")->middleware("auth");
+
+Route::post("/logout", [LoginController::class, "logout"])->name("logout");

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class RegisterController extends Controller
 {
@@ -16,13 +17,18 @@ class RegisterController extends Controller
 
     public function storeRegister(Request $request)
     {
-        // $token = $request->session()->token();
-        // $token = csrf_token();
         $validated = $request->validate([
             "name" => "required|max:255",
             "email" => "required|email:dns|unique:users",
             "password" => "required|min:5|max:255",
             "repeatPassword" => "required|same:password"
         ]);
+
+        $validated["password"] = bcrypt($validated["password"]);
+        User::create($validated);
+
+        session()->flash("successRegister", "Register Success, Please Login");
+
+        return redirect("/login");
     }
 }
