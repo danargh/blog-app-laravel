@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardPostController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
@@ -60,4 +61,6 @@ Route::post("/register", [RegisterController::class, "storeRegister"])->name("re
 
 Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard")->middleware("auth");
 
-Route::post("/logout", [LoginController::class, "logout"])->name("logout");
+Route::get("/logout", [LoginController::class, "logout"])->name("logout");
+
+Route::resource('dashboard/posts', DashboardPostController::class)->middleware('auth');
