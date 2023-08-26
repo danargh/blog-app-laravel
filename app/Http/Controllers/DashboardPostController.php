@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DashboardPostController extends Controller
 {
@@ -27,7 +29,10 @@ class DashboardPostController extends Controller
      */
     public function create()
     {
-        //
+        return view("dashboard.posts.create", [
+            "title" => "dashboard",
+            "categories" => Category::all(),
+        ]);
     }
 
     /**
@@ -38,7 +43,19 @@ class DashboardPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            "title" => "required|max:255",
+            "slug" => "required|unique:posts",
+            "category_id" => "required",
+            "body" => "required"
+        ]);
+
+        $validated["user_id"] = auth()->user()->id;
+        $validated["excerpt"] = Str::limit(strip_tags($request->body), 100, '...');
+
+        Post::create($validated);
+
+        return redirect("/dashboard/posts")->with("successCreatePost", "New post has been added!");
     }
 
     /**

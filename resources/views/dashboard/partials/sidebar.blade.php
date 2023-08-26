@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{Request::is('dashboard/posts') ? 'bg-body-secondary' : ''}} text-dark d-flex align-items-center gap-2" href="/dashboard/posts">
+                    <a class="nav-link {{Request::is('dashboard/posts*') ? 'bg-body-secondary' : ''}} text-dark d-flex align-items-center gap-2" href="/dashboard/posts">
                         <i class="text-dark" data-feather="file-text"></i>
                         Posts
                     </a>
