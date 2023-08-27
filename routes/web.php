@@ -61,6 +61,6 @@ Route::post("/register", [RegisterController::class, "storeRegister"])->name("re
 
 Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard")->middleware("auth");
 
-Route::get("/logout", [LoginController::class, "logout"])->name("logout");
+Route::post("/logout", [LoginController::class, "logout"])->name("logout");
 
 Route::resource('dashboard/posts', DashboardPostController::class)->middleware('auth');

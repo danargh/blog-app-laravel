@@ -42,15 +42,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    {{-- <form action="/logout" method="POST" class="d-flex">
+                    <form action="/logout" method="POST" class="d-flex">
                         @csrf
-                        <button type="submit" class="nav-link d-flex align-items-center"><i style="font-size: 20px; margin-right: 12px; margin-bottom: 16px" class="bi bi-box-arrow-left"></i>Logout</button>
-                    </form> --}}
-
-                    <a class="nav-link d-flex align-items-center text-dark gap-2" href="/logout">
-                        <i class="text-dark" data-feather="log-out"></i>
-                        Sign out
-                    </a>
+                        <button type="submit" class="text-dark nav-link d-flex align-items-center"><i class="text-dark" style="margin-right: 0.5rem" data-feather="log-out"></i>Logout</button>
+                    </form>
                 </li>
             </ul>
         </div>

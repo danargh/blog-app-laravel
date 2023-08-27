@@ -30,7 +30,7 @@ class DashboardPostController extends Controller
     public function create()
     {
         return view("dashboard.posts.create", [
-            "title" => "dashboard",
+            "title" => "Create New Post",
             "categories" => Category::all(),
         ]);
     }
@@ -80,7 +80,12 @@ class DashboardPostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view("dashboard.posts.edit", [
+            "title" => "Update Post : $post->title",
+            "post" => $post,
+            "categoryId" => Category::where('id', $post->category_id)->first(),
+            "categories" => Category::all(),
+        ]);
     }
 
     /**
@@ -92,7 +97,28 @@ class DashboardPostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        if ($request->slug == $post->slug) {
+            $validated = $request->validate([
+                "title" => "required|max:255",
+                "category_id" => "required",
+                "body" => "required"
+            ]);
+        } else {
+            $validated = $request->validate([
+                "title" => "required|max:255",
+                "slug" => "required|unique:posts",
+                "category_id" => "required",
+                "body" => "required"
+            ]);
+        }
+
+        $validated["user_id"] = auth()->user()->id;
+        $validated["excerpt"] = Str::limit(strip_tags($request->body), 100, '...');
+
+        Post::where('id', $post->id)
+            ->update($validated);
+
+        return redirect("/dashboard/posts")->with("successUpdatePost", "Post has been updated!");
     }
 
     /**
@@ -103,6 +129,8 @@ class DashboardPostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        Post::destroy($post->id);
+
+        return redirect("/dashboard/posts")->with("successDeletePost", "Post has been deleted!");
     }
 }
