@@ -43,17 +43,17 @@ class DashboardPostController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->file('image')->store('post-images');
-
         $validated = $request->validate([
             "title" => "required|max:255",
             "slug" => "required|unique:posts",
             "category_id" => "required",
-            "body" => "required"
+            "body" => "required",
+            "image" => "required|image|mimes:jpg,jpeg,png,svg|max:5120"
         ]);
 
         $validated["user_id"] = auth()->user()->id;
         $validated["excerpt"] = Str::limit(strip_tags($request->body), 100, '...');
+        $validated["image"] = $request->file('image')->store('post-images');
 
         Post::create($validated);
 
@@ -103,19 +103,31 @@ class DashboardPostController extends Controller
             $validated = $request->validate([
                 "title" => "required|max:255",
                 "category_id" => "required",
-                "body" => "required"
+                "body" => "required",
+                "image" => "image|mimes:jpg,jpeg,png,svg|max:5120"
             ]);
         } else {
             $validated = $request->validate([
                 "title" => "required|max:255",
                 "slug" => "required|unique:posts",
                 "category_id" => "required",
-                "body" => "required"
+                "body" => "required",
+                "image" => "image|mimes:jpg,jpeg,png,svg|max:5120"
             ]);
+        }
+
+        if ($request->image == $post->image) {
+            // delete image atrribute from validated
+            unset($validated["image"]);
         }
 
         $validated["user_id"] = auth()->user()->id;
         $validated["excerpt"] = Str::limit(strip_tags($request->body), 100, '...');
+        if (isset($validated["image"])) {
+            $validated["image"] = $request->file('image')->store('post-images');
+            // delete old image from storage
+            unlink("storage/$post->image");
+        }
 
         Post::where('id', $post->id)
             ->update($validated);

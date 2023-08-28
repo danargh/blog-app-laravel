@@ -46,6 +46,15 @@ $(document).ready(function () {
     document.addEventListener("trix-file-accept", function (e) {
         e.preventDefault();
     });
+
+    // image file preview
+    $("#imageInputEditPost").on("change", function (event) {
+        let imagePreview = $("#imagePreviewEditPost");
+        imagePreview.attr("src", URL.createObjectURL(event.target.files[0]));
+        imagePreview.on("load", function () {
+            URL.revokeObjectURL(imagePreview.attr("src")); // free memory
+        });
+    });
 });
 
 // (() => {

@@ -7,8 +7,8 @@ Post::create([
 ])
 
 Category::create([
-    'name' => 'Web Programming',
-    'slug' => 'web-programming'
+    'name' => 'Personal',
+    'slug' => 'personal'
 ])
 
 User::create([

@@ -7,7 +7,7 @@
     </div>
 
     <div class=" col-lg-8">
-        <form action="/dashboard/posts/{{$post->slug}}" method="POST">
+        <form action="/dashboard/posts/{{$post->slug}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -39,6 +39,17 @@
                 @error('category_id')
                 <div class="invalid-feedback mb-2">{{$message}}</div>
                 @enderror
+            </div>
+            <div class="mb-3">
+                <label for="imageInputEditPost" class="form-label">Upload Image</label>
+                <input accept="image/*" onchange="loadFile(event)" class="form-control @error('image')is-invalid @enderror" type="file" id="imageInputEditPost" name="image">
+                @error('image')
+                <div class="invalid-feedback mb-2">{{$message}}</div>
+                @enderror
+                <div class="mt-3">
+                    <p class="mb-2">Image Preview</p>
+                    <img id="imagePreviewEditPost" style="width: 50%; height: 200px; object-fit: cover" src="{{asset('storage/' . $post->image)}}" alt="{{$post->category->name}}">
+                </div>
             </div>
             <div class="mb-3">
                 <label for="postBody" class="form-label">Content</label>

@@ -8,7 +8,7 @@
             <ul class="nav flex-column">
                 <li class="nav-item">
                     <a class="nav-link {{Request::is('dashboard') ? 'bg-body-secondary' : ''}} text-dark d-flex align-items-center gap-2 active" aria-current="page" href="/dashboard">
-                        <i class="text-dark" data-feather="home"></i>
+                        <i class="text-dark" data-feather="bar-chart-2"></i>
                         Dashboard
                     </a>
                 </li>
@@ -39,6 +39,12 @@
                     <a class="nav-link d-flex align-items-center text-dark gap-2" href="#">
                         <i class="text-dark" data-feather="settings"></i>
                         Settings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center text-dark gap-2" href="/">
+                        <i class="text-dark" data-feather="home"></i>
+                        Homepage
                     </a>
                 </li>
                 <li class="nav-item">

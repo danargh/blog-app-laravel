@@ -16,7 +16,7 @@
             </li>
         </ul>
         <p class="mb-4">Created by <a href=" #" class="text-decoration-none">{{$post->author->name}}</a> in <a href="/categories/{{$post->category->slug}}">{{$post->category->name}}</a> </p>
-        <img src="https://ecampusontario.pressbooks.pub/app/uploads/sites/2109/2021/11/programming-gb0e197598_1920.jpg" class="card-img-top" style="width: 100%; height: 400px; object-fit: cover" alt="...">
+        <img src="{{asset('storage/' . $post->image)}}" class="card-img-top" style="width: 100%; height: 400px; object-fit: cover" alt="{{$post->category->name}}">
         <p class="mt-4">{!!$post->body!!}</p>
     </article>
 </main>

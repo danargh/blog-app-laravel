@@ -17,7 +17,7 @@
 
 @if ($posts->count() && $title == 'All Posts')
 <div class="card mb-3 mt-5">
-    <img src="https://static.vecteezy.com/system/resources/previews/003/343/387/original/desktop-source-code-and-wallpaper-by-coding-and-programming-free-photo.jpg" class="card-img-top" style="height: 300px; object-fit: cover" alt="...">
+    <img src="{{asset('storage/' . $posts[0]->image)}}" class="card-img-top" style="height: 300px; object-fit: cover" alt="{{$posts[0]->category->name}}">
     <div class="card-body text-center">
         <h5 class="card-title">{{$posts[0]->title}}</h5>
         <p>Created by <a href="/posts?author={{$posts[0]->author->name}}" class="text-decoration-none">{{$posts[0]->author->name}}</a> in <a href="/posts?category={{$posts[0]->category->slug}}">{{$posts[0]->category->name}}</a> {{$posts[0]->created_at}}</p>
@@ -32,7 +32,7 @@
         <div class="col-md-4" style="margin-bottom: 16px">
             <div class="card">
                 <div style="background-color: rgba(0,0,0,0.7)" class="px-3 py-2 position-absolute"><a class="text-white text-decoration-none" href="/posts?category={{$post->category->slug}}">{{$post->category->name}}</a></div>
-                <img src="https://ecampusontario.pressbooks.pub/app/uploads/sites/2109/2021/11/programming-gb0e197598_1920.jpg" class="card-img-top" style="width: 100%; object-fit: cover" alt="...">
+                <img src="{{asset('storage/' . $post->image)}}" class="card-img-top" style="width: 100%; object-fit: cover" alt="{{$post->category->name}}">
                 <div class="card-body">
                     <h5 class=" card-title"><a href="/posts/{{ $post->slug }}">{{ $post->title }}</a></h5>
                     <p>Created by <a href="/posts?author={{$post->author->name}}" class="text-decoration-none">{{$post->author->name}}</a> <span class=" text-secondary">{{$post->updated_at->diffForHumans()}}</span> </p>
@@ -54,7 +54,7 @@
         <div class="col-md-4" style="margin-bottom: 16px">
             <div class="card">
                 <div style="background-color: rgba(0,0,0,0.7)" class="px-3 py-2 position-absolute"><a class="text-white text-decoration-none" href="/posts?category={{$post->category->slug}}">{{$post->category->name}}</a></div>
-                <img src="https://ecampusontario.pressbooks.pub/app/uploads/sites/2109/2021/11/programming-gb0e197598_1920.jpg" class="card-img-top" style="width: 100%; object-fit: cover" alt="...">
+                <img src="{{asset('storage/' . $post->image)}}" class="card-img-top" style="width: 100%; object-fit: cover" alt="{{$post->category->name}}">
                 <div class="card-body">
                     <h5 class=" card-title"><a href="/posts/{{ $post->slug }}">{{ $post->title }}</a></h5>
                     <p>Created by <a href="/posts?author={{$post->author->name}}" class="text-decoration-none">{{$post->author->name}}</a> <span class=" text-secondary">{{$post->updated_at->diffForHumans()}}</span> </p>
