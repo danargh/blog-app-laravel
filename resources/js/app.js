@@ -23,9 +23,9 @@ $(document).ready(function () {
     );
 
     // jquery validate slug
-    $("#titleInputCreatePost").on("keyup", function () {
-        let titleInput = $("#titleInputCreatePost").val();
-        let slugInput = $("#slugInputCreatePost");
+    $("#titleInput").on("keyup", function () {
+        let titleInput = $("#titleInput").val();
+        let slugInput = $("#slugInput");
 
         if (titleInput !== "") {
             slugInput.val(slugify(titleInput));

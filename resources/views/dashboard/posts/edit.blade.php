@@ -18,8 +18,8 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="slugInputCreatePost" class="form-label">Slug</label>
-                <input type="text" class="form-control @error('slug')is-invalid @enderror" value="{{$post->slug}}" id="slugInputCreatePost" name="slug" aria-describedby="emailHelp" readonly required>
+                <label for="slugInput" class="form-label">Slug</label>
+                <input type="text" class="form-control @error('slug')is-invalid @enderror" value="{{$post->slug}}" id="slugInput" name="slug" aria-describedby="emailHelp" readonly required>
                 @error('slug')
                 <div class="invalid-feedback mb-2">{{$message}}</div>
                 @enderror
@@ -59,9 +59,8 @@
                 <div class="invalid-feedback mb-2">{{$message}}</div>
                 @enderror
             </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
 </main>
 @endsection

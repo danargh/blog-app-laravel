@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
@@ -64,3 +65,5 @@ Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard
 Route::post("/logout", [LoginController::class, "logout"])->name("logout");
 
 Route::resource('dashboard/posts', DashboardPostController::class)->middleware('auth');
+
+Route::resource('dashboard/categories', AdminCategoryController::class)->except('show')->middleware('auth');

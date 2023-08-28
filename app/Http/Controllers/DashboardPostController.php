@@ -18,7 +18,8 @@ class DashboardPostController extends Controller
     {
         return view("dashboard.posts.index", [
             "title" => "dashboard",
-            "posts" => Post::where('user_id', auth()->user()->id)->get()
+            "posts" => Post::where('user_id', auth()->user()->id)->get(),
+            "categories" => Category::all(),
         ]);
     }
 

@@ -10,15 +10,15 @@
         <form action="/dashboard/posts" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
-                <label for="titleInputCreatePost" class="form-label">Title</label>
-                <input type="text" class="form-control @error('title')is-invalid @enderror" value="{{old('title')}}" id="titleInputCreatePost" name="title" aria-describedby="emailHelp" required>
+                <label for="titleInput" class="form-label">Title</label>
+                <input type="text" class="form-control @error('title')is-invalid @enderror" value="{{old('title')}}" id="titleInput" name="title" aria-describedby="emailHelp" required>
                 @error('title')
                 <div class="invalid-feedback mb-2">{{$message}}</div>
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="slugInputCreatePost" class="form-label">Slug</label>
-                <input type="text" class="form-control @error('slug')is-invalid @enderror" value="{{old('slug')}}" id="slugInputCreatePost" name="slug" aria-describedby="emailHelp" readonly required>
+                <label for="slugInput" class="form-label">Slug</label>
+                <input type="text" class="form-control @error('slug')is-invalid @enderror" value="{{old('slug')}}" id="slugInput" name="slug" aria-describedby="emailHelp" readonly required>
                 @error('slug')
                 <div class="invalid-feedback mb-2">{{$message}}</div>
                 @enderror
@@ -54,9 +54,8 @@
                 <div class="invalid-feedback mb-2">{{$message}}</div>
                 @enderror
             </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
 </main>
 @endsection
