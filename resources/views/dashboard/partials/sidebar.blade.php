@@ -29,6 +29,7 @@
                 </li>
             </ul>
 
+            @can('admin')
             <hr class="my-3">
 
             <h6 class=" d-flex mx-3 text-secondary">
@@ -54,6 +55,7 @@
                     </a>
                 </li>
             </ul>
+            @endcan
 
             <hr class="my-3">
 

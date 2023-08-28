@@ -42,7 +42,7 @@
             </div>
             <div class="mb-3">
                 <label for="imageInputEditPost" class="form-label">Upload Image</label>
-                <input accept="image/*" onchange="loadFile(event)" class="form-control @error('image')is-invalid @enderror" type="file" id="imageInputEditPost" name="image">
+                <input accept="image/*" class="form-control @error('image')is-invalid @enderror" type="file" id="imageInputEditPost" name="image">
                 @error('image')
                 <div class="invalid-feedback mb-2">{{$message}}</div>
                 @enderror

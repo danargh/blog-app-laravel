@@ -66,4 +66,4 @@ Route::post("/logout", [LoginController::class, "logout"])->name("logout");
 
 Route::resource('dashboard/posts', DashboardPostController::class)->middleware('auth');
 
-Route::resource('dashboard/categories', AdminCategoryController::class)->except('show')->middleware('auth');
+Route::resource('dashboard/categories', AdminCategoryController::class)->except('show');
